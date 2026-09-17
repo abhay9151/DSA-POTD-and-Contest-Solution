@@ -1,3 +1,4 @@
+//Time Complexity o(N) in this question hamne sirf itna kiya he apne se pahle index ke sabhi subraaay jinka sum==target he usko store karle. Hamne do subarray nikal na he jiska sum target ke equal he top local minimum previous ko leke aor global (overall) minimum nikalte raho.
 class Solution {
 public:
     int minSumOfLengths(vector<int>& arr, int target) {
