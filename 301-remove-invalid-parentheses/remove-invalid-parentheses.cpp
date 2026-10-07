@@ -1,3 +1,5 @@
+// Time Complexity is ->O(2^N *N)
+// the constaints is very less and also isme either hame take karna padega yato remove karna padega aor sare valid possibilites nikalni padegi.
 class Solution {
         set<string>result;
         void solve(string &s,int count ,int index,string &curr){
@@ -9,6 +11,7 @@ class Solution {
                 return ;
             }
             // take the character 
+            // string valid he ki nhi check karne ke liye yahhi sabse valid tarika he.
             if(s[index]=='('){
                 curr+=s[index];
                 solve(s,count+1,index+1,curr);
@@ -34,6 +37,7 @@ public:
         int maxlen=INT_MIN;
         solve(s,0,0,curr);
         vector<string>ans(result.begin(),result.end());
+        // jo answer me sabse madi length ki string hogi whi answer hoga.
         for(int i=0;i<ans.size();i++){
             int len=ans[i].length();
             maxlen=max(maxlen,len);
