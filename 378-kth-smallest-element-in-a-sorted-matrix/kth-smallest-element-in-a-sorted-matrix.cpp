@@ -1,32 +1,39 @@
 class Solution {
-public:
-    int kthSmallest(vector<vector<int>>& matrix, int k) {
-        int n=matrix.size();
-        int m=matrix[0].size();
-        vector<vector<int>>vis(n, vector<int>(m, 0));
-        priority_queue<pair<int, pair<int, int>>,vector<pair<int, pair<int, int>>>,greater<pair<int, pair<int, int>>>> pq;
-        pq.push({matrix[0][0],{0,0}});
-        vis[0][0]=1;
-        int row[]={0,1};
-        int col[]={1,0};
-        while(!pq.empty()){
-            int value=pq.top().first;
-            int r=pq.top().second.first;
-            int c=pq.top().second.second;
-            pq.pop();
-            k--;
-            if(k==0){
-                return value;
-            }
-            for(int i=0;i<2;i++){
-                int nrow=r+row[i];
-                int ncol=c+col[i];
-                if(nrow<n && ncol<m && !vis[nrow][ncol]){
-                    pq.push({matrix[nrow][ncol],{nrow,ncol}});
-                    vis[nrow][ncol]=1;
-                }
+    int countLessEqual(vector<vector<int>>& mat, int n, int target) {
+        int row = n - 1;
+        int col = 0;
+        int count = 0;
+
+        while (row >= 0 && col < n) {
+            if (mat[row][col] <= target) {
+                count += (row + 1);
+                col++;
+            } 
+            else {
+                row--;
             }
         }
-        return -1;
+
+        return count;
+    }
+public:
+    int kthSmallest(vector<vector<int>>& mat, int k) {
+        int n = mat.size();
+        int low = mat[0][0];
+        int high = mat[n - 1][n - 1];
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int count = countLessEqual(mat, n, mid);
+
+            if (count < k) {
+                low = mid + 1;
+            } 
+            else {
+                high = mid - 1;
+            }
+        }
+
+        return low;
     }
 };
